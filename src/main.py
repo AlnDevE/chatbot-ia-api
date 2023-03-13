@@ -6,6 +6,6 @@ def get(message: str):
 
 def post(newDataTraining: TrainData):
     current_objetives = get_file()
-    current_objetives['objectives'].append(newDataTraining)
+    current_objetives['objectives'].append(newDataTraining.dict())
     write_file(current_objetives)
     return "Novo treinamento incluido!"
