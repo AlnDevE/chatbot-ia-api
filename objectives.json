@@ -1,21 +1,21 @@
 {
-    "objectives": [
-        {
-            "tag": "inicio",
-            "patterns": [
-              "Ola",
-              "Olá",
-              "Eai",
-              "Hey",
-              "Hola",
-              "Hello"
-            ],
-            "responses": [
-              "Ola, em que posso ajudar?"
-            ],
-            "context": [
-              ""
-            ]
-        }
-    ]
-  }
+  "objectives": [
+    {
+      "tag": "inicio",
+      "patterns": [
+        "Ola",
+        "Olá",
+        "Eai",
+        "Hey",
+        "Hola",
+        "Hello"
+      ],
+      "responses": [
+        "Ola, em que posso ajudar?"
+      ],
+      "context": [
+        ""
+      ]
+    }
+  ]
+}
