@@ -1,11 +1,11 @@
-import json
+from file import get_file, write_file
 from classes.train_data import TrainData
 
 def get(message: str):
     return 'test'
 
 def post(newDataTraining: TrainData):
-    current_objetives_file = open('../objectives.json').read()
-    current_objetives = json.loads(current_objetives_file)
-    return current_objetives
-    
+    current_objetives = get_file()
+    current_objetives['objectives'].append(newDataTraining)
+    write_file(current_objetives)
+    return "Novo treinamento incluido!"
