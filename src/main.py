@@ -5,7 +5,7 @@ from predict import predict
 
 def get(message: str):
     message = message.replace('\n','') if '\n' in message else message
-    return predict.get()
+    return predict.get(message)
 
 def post(newDataTraining: TrainData):
     current_objetives = get_file()

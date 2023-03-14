@@ -1,1 +1,1 @@
-{"objectives": [{"tag": "inicio", "patterns": ["Ola", "Ola", "Eai", "Hey", "Hola", "Hello"], "responses": ["Ola, em que posso ajudar?"], "context": [""]}, {"tag": "teste", "pattern": ["t"], "responses": ["new training works"], "context": [""]}]}
+{"objectives": [{"tag": "inicio", "patterns": ["Ola", "Ola", "Eai", "Hey", "Hola", "Hello"], "responses": ["Ola, em que posso ajudar?"], "context": [""]}, {"tag": "teste", "patterns": ["t"], "responses": ["new training works"], "context": [""]}]}
