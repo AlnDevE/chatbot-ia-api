@@ -1,9 +1,11 @@
 from file import get_file, write_file
 from classes.train_data import TrainData
 from train import train_ia
+from predict import predict
 
 def get(message: str):
-    return 'test'
+    message = message.replace('\n','') if '\n' in message else message
+    return predict.get()
 
 def post(newDataTraining: TrainData):
     current_objetives = get_file()
