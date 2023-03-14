@@ -1,4 +1,3 @@
-import json
 import pickle
 import random
 import nltk
@@ -7,16 +6,13 @@ from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.optimizers import SGD
 from nltk.stem import WordNetLemmatizer
-
+from file import get_file
 nltk.download('punkt')
 nltk.download('wordnet')
 
-lemmatizer = WordNetLemmatizer()
-
 def train_ia():
-    
-    objetives_file = open('objectives.json').read()
-    objectives = json.loads(objetives_file)
+    lemmatizer = WordNetLemmatizer()
+    objectives = get_file()
 
     words = []
     classes = []
@@ -24,8 +20,8 @@ def train_ia():
     ignore_letters = ['!', '?', ',', '.']
 
     for objective in objectives['objectives']:
-        for pattern in objective['patterns']:
-            word = nltk.word_tokenize(pattern)
+        for patterns in objective['patterns']:
+            word = nltk.word_tokenize(patterns)
             words.extend(word)
             documents.append((word, objective['tag']))
             if objective['tag'] not in classes:
@@ -43,11 +39,11 @@ def train_ia():
     output_empty = [0] * len(classes)
     for doc in documents:
         bag = []
-        pattern_words = doc[0]
-        pattern_words = [lemmatizer.lemmatize(
-            word.lower()) for word in pattern_words]
+        patterns_words = doc[0]
+        patterns_words = [lemmatizer.lemmatize(
+            word.lower()) for word in patterns_words]
         for word in words:
-            bag.append(1) if word in pattern_words else bag.append(0)
+            bag.append(1) if word in patterns_words else bag.append(0)
 
         output_row = list(output_empty)
         output_row[classes.index(doc[1])] = 1

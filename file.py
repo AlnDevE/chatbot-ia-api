@@ -2,7 +2,10 @@ import json
 
 def get_file():
     with open('objectives.json') as fp:
-        return json.loads(fp.read()) 
+        try:  
+            return json.loads(fp.read()) 
+        except:
+            return {}
 
 def write_file(dataTraining):
     object_to_json = json.dumps(dataTraining)
