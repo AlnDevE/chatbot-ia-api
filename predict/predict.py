@@ -1,11 +1,16 @@
 
 import random
 from tkinter import *
-from datas import objectives, model, lemmatizer, words, classes
 import nltk
 import numpy as np
+import json
+import pickle
+from tkinter import *
+from keras.models import load_model
+from nltk.stem import WordNetLemmatizer
 
-def get(message: str):
+def get(message: str):  
+    set_datas()  
     ints = predict_class(message)
     return get_response(ints, objectives)
     
@@ -47,3 +52,15 @@ def get_response(ints, objectives_json):
             result = random.choice(i['responses'])
             break
     return result
+
+def set_datas():
+    global lemmatizer
+    global model
+    global objectives
+    global words
+    global classes
+    lemmatizer = WordNetLemmatizer()
+    model = load_model('chat_fatec_model.h5')
+    objectives = json.loads(open('objectives.json').read())
+    words = pickle.load(open('all_words.pkl', 'rb'))
+    classes = pickle.load(open('all_classes.pkl', 'rb'))
