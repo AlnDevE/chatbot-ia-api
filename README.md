@@ -12,6 +12,8 @@ Com esse projeto, espera-se que os usuários da Fatec tenham um atendimento mais
 ## ⚙️ Funcionalidades
 
 - [x] Responde dúvidas referente a faculdade de tecnologia.
+- [x] Cadastra novas perguntas e respostas.
+- [x] Lista perguntas e respostas já cadastradas.
 
 ## 💻 Development
 
