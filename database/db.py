@@ -13,11 +13,11 @@ def get_config():
     global db
     
     db = MySQLDatabase(
-        host="127.0.0.1",
-        port=3306,
-        user="root",
-        password="sql.aln135",
-        database="chatbot"
+        host="yourhost",
+        port=3306, 
+        user="youruser",
+        password="yourpassword",
+        database="yourschema"
     )
     
     return db
