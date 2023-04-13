@@ -9,6 +9,7 @@ from nltk.stem import WordNetLemmatizer
 from file import get_file
 nltk.download('punkt')
 nltk.download('wordnet')
+import json
 
 def train_ia():
     lemmatizer = WordNetLemmatizer()
@@ -69,3 +70,7 @@ def train_ia():
     hist = model.fit(np.array(train_x), np.array(train_y),
                     epochs=200, batch_size=5, verbose=1)
     model.save('chat_fatec_model.h5', hist)
+    
+def get_trainings():
+    trainings = json.loads(open('objectives.json').read())
+    return trainings['objectives']
