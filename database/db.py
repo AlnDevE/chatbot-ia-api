@@ -13,7 +13,7 @@ def get_config():
     global db
     
     db = MySQLDatabase(
-        host="localhost",
+        host="localhostt",
         port=3306,
         user="yourusername",
         password="yourpassword",
