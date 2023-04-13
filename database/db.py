@@ -1,5 +1,5 @@
 
-from peewee import MySQLDatabase
+from peewee import *
 
 db = None
 
@@ -13,11 +13,11 @@ def get_config():
     global db
     
     db = MySQLDatabase(
-        host="localhosttt",
+        host="127.0.0.1",
         port=3306,
-        user="yourusername",
-        password="yourpassword",
-        database="yourdatabase"
+        user="root",
+        password="sql.aln135",
+        database="chatbot"
     )
     
     return db

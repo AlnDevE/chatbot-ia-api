@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from src.main import get, post
-from classes.train_data import TrainData
+from src.main import get
+from src.services.training_service import post
+from classes.train_data import CreateTraining
 from train import get_trainings
 
 router = APIRouter()
@@ -14,8 +15,8 @@ def get_response(message):
     except Exception as exc:
         raise HTTPException(500, f"Internal server error")
 
-@router.post("/chat-fatec/train/")
-def get_response(newDataTraining: TrainData):
+@router.post("/chat-fatec/trainings/")
+def get_response(newDataTraining: CreateTraining):
     if not newDataTraining:
         raise HTTPException(404, "Has not data training")
     try:

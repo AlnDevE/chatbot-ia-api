@@ -6,3 +6,8 @@ class TrainData(BaseModel):
     patterns: List[str]
     responses: List[str]
     context: List[str]
+
+class CreateTraining(BaseModel):
+    tag: str
+    patterns: List[str]
+    responses: List[str]
