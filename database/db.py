@@ -1,18 +1,20 @@
-import mysql.connector
 
+from peewee import *
+
+db = None
 
 def get_db():
     if not db:
-        get_db()
-    else:
-        return db
+        get_config()
+    return db
 
 
 def get_config():
     global db
     
-    db = mysql.connector.connect(
+    db = MySQLDatabase(
         host="localhost",
+        port=3306,
         user="yourusername",
         password="yourpassword",
         database="yourdatabase"
