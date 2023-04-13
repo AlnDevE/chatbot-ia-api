@@ -2,6 +2,7 @@ from models.pattern import Pattern
 from models.response import Response
 from models.training import Training
 from classes.train_data import CreateTraining
+import logging
 
 
 def post(data: CreateTraining):
@@ -23,6 +24,7 @@ def post(data: CreateTraining):
         )
         for response in data.responses
     ]
+    logging.info("Created")
     return "post OK"
 
 def put():
@@ -32,4 +34,17 @@ def delete():
     return "delete"
 
 def get():
+    query = (Training.select(
+        Training.id,
+        Training.tag,
+        Response.descricao.alias("pattern"),
+        Pattern.descricao.alias("response")
+        ).join(
+        Response, on=(Response.training_id == Training.id)
+    ).join(
+        Pattern, on=(Pattern.training_id == Training.id)
+    ).group_by(Training.id))
+    
+    all_datas = list(query.dicts())
+    logging.debug(query)
     return "get"
