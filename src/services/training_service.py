@@ -3,6 +3,7 @@ from models.response import Response
 from models.training import Training
 from classes.train_data import CreateTraining
 import logging
+from classes.train_data import TrainData
 
 
 def post(data: CreateTraining):
@@ -34,17 +35,30 @@ def delete():
     return "delete"
 
 def get():
-    query = (Training.select(
-        Training.id,
-        Training.tag,
-        Response.descricao.alias("pattern"),
-        Pattern.descricao.alias("response")
-        ).join(
-        Response, on=(Response.training_id == Training.id)
-    ).join(
-        Pattern, on=(Pattern.training_id == Training.id)
-    ).group_by(Training.id))
+    logging.debug("-> GETTING DATA")
+    all_trainings = list(Training.select().dicts())
+    all_patterns = list(Pattern.select().dicts())
+    all_responses = list(Response.select().dicts())
     
-    all_datas = list(query.dicts())
-    logging.debug(query)
-    return "get"
+    return group_data(all_trainings, all_patterns, all_responses)
+
+
+def group_data(all_trainings, all_patterns, all_responses):
+    logging.debug("-> GROUPING DATA")
+    grouped: list[TrainData] = []
+    for training in all_trainings:
+        list_of_pattern_by_id = [
+            data["descricao"] for data in 
+            list(filter(lambda data: data["training_id"] == training["id"], all_patterns))
+        ]
+        list_of_response_by_id = [
+            data["descricao"] for data in 
+            list(filter(lambda data: data["training_id"] == training["id"], all_responses))
+        ]
+        grouped.append({
+            "id": training["id"],
+            "tag": training["tag"],
+            "patterns": list_of_pattern_by_id,
+            "responses": list_of_response_by_id
+        })
+    return grouped

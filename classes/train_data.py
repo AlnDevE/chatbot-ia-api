@@ -2,6 +2,7 @@ from typing import List
 from pydantic import BaseModel
 
 class TrainData(BaseModel):
+    id: int
     tag: str
     patterns: List[str]
     responses: List[str]
