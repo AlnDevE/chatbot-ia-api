@@ -7,6 +7,7 @@ from classes.train_data import TrainData
 
 
 def post(data: CreateTraining):
+    logging.info("-> START CREATING")
     all_tags = [training["tag"] for training in list(Training.select(Training.tag).dicts())] 
     if data.tag in all_tags:
         raise Exception
@@ -25,14 +26,17 @@ def post(data: CreateTraining):
         )
         for response in data.responses
     ]
-    logging.info("Created")
-    return "post OK"
+    logging.info("-> CREATED")
 
 def put():
     return "put"
 
-def delete():
-    return "delete"
+def delete(training_id: int):
+    logging.info("-> START DELETE")
+    Response.delete().where(Response.training_id==training_id).execute()
+    Pattern.delete().where(Pattern.training_id==training_id).execute()
+    Training.delete().where(Training.id==training_id).execute()
+    logging.info("-> DELETED")
 
 def get():
     logging.debug("-> GETTING DATA")
