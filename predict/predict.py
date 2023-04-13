@@ -8,6 +8,7 @@ import pickle
 from tkinter import *
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
+from src.services.training_service import get as get_objectives
 
 def get(message: str):  
     set_datas()  
@@ -44,9 +45,8 @@ def predict_class(sentence):
     return return_list
 
 
-def get_response(ints, objectives_json):
+def get_response(ints, list_of_objectives):
     tag = ints[0]['objective']
-    list_of_objectives = objectives_json['objectives']
     for i in list_of_objectives:
         if (i['tag'] == tag):
             result = random.choice(i['responses'])
@@ -61,6 +61,6 @@ def set_datas():
     global classes
     lemmatizer = WordNetLemmatizer()
     model = load_model('chat_fatec_model.h5')
-    objectives = json.loads(open('objectives.json').read())
+    objectives = get_objectives()
     words = pickle.load(open('all_words.pkl', 'rb'))
     classes = pickle.load(open('all_classes.pkl', 'rb'))

@@ -6,21 +6,21 @@ from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.optimizers import SGD
 from nltk.stem import WordNetLemmatizer
-from file import get_file
+from src.services.training_service import get
 nltk.download('punkt')
 nltk.download('wordnet')
 import json
 
-def train_ia():
+def tra_ia():
     lemmatizer = WordNetLemmatizer()
-    objectives = get_file()
+    objectives = get()
 
     words = []
     classes = []
     documents = []
     ignore_letters = ['!', '?', ',', '.']
 
-    for objective in objectives['objectives']:
+    for objective in objectives:
         for patterns in objective['patterns']:
             word = nltk.word_tokenize(patterns)
             words.extend(word)
@@ -70,7 +70,3 @@ def train_ia():
     hist = model.fit(np.array(train_x), np.array(train_y),
                     epochs=200, batch_size=5, verbose=1)
     model.save('chat_fatec_model.h5', hist)
-    
-def get_trainings():
-    trainings = json.loads(open('objectives.json').read())
-    return trainings['objectives']

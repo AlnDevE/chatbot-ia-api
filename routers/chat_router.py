@@ -1,7 +1,9 @@
 from fastapi import APIRouter, HTTPException
-from src.main import get
+from src.main import get_main
 from src.services.training_service import post, get, delete
 from classes.train_data import CreateTraining
+import logging
+from training_ia import tra_ia
 
 router = APIRouter()
 
@@ -10,16 +12,19 @@ def get_response(message):
     if not message:
         raise HTTPException(404, "Has not message")
     try:
-        return get(message)
+        return get_main(message)
     except Exception as exc:
         raise HTTPException(500, f"Internal server error")
 
 @router.post("/chat-fatec/trainings/")
-def post_training(newDataTraining: CreateTraining):
+def post_training(newDataTraining: list[CreateTraining]):
     if not newDataTraining:
         raise HTTPException(404, "Has not data training")
     try:
-        return post(newDataTraining)
+        post(newDataTraining)
+        logging.info("-> TRAINING STARTED")
+        tra_ia()
+        logging.info("-> TRAINING OK")
     except Exception as exc:
         raise HTTPException(500, f"Internal server error")
 

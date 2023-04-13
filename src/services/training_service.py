@@ -5,27 +5,28 @@ from classes.train_data import CreateTraining
 import logging
 from classes.train_data import TrainData
 
-
-def post(data: CreateTraining):
+def post(datas: list[CreateTraining]):
     logging.info("-> START CREATING")
     all_tags = [training["tag"] for training in list(Training.select(Training.tag).dicts())] 
-    if data.tag in all_tags:
-        raise Exception
-    pk = Training.create(tag=data.tag)._pk
-    [
-        Pattern.create(
-                descricao=pattern,
+    for data in datas:
+        if data.tag in all_tags:
+            raise Exception
+        
+        pk = Training.create(tag=data.tag)._pk
+        [
+            Pattern.create(
+                    descricao=pattern,
+                    training_id= pk
+            )
+            for pattern in data.patterns
+        ]
+        [
+            Response.create(
+                descricao=response,
                 training_id= pk
-        )
-        for pattern in data.patterns
-    ]
-    [
-        Response.create(
-            descricao=response,
-            training_id= pk
-        )
-        for response in data.responses
-    ]
+            )
+            for response in data.responses
+        ]
     logging.info("-> CREATED")
 
 def put():
