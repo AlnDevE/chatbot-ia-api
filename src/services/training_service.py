@@ -41,7 +41,7 @@ def delete(training_id: int):
 
 def get():
     logging.debug("-> GETTING DATA")
-    all_trainings = list(Training.select().dicts())
+    all_trainings = list(Training.select().order_by(Training.id.desc()).dicts())
     all_patterns = list(Pattern.select().dicts())
     all_responses = list(Response.select().dicts())
     

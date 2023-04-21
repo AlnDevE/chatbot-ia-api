@@ -3,7 +3,6 @@ import random
 from tkinter import *
 import nltk
 import numpy as np
-import json
 import pickle
 from tkinter import *
 from keras.models import load_model
