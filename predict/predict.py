@@ -7,7 +7,7 @@ import pickle
 from tkinter import *
 from keras.models import load_model
 from nltk.stem import WordNetLemmatizer
-from src.services.training_service import get as get_objectives
+from services.training_service import get as get_objectives
 
 def get(message: str):  
     set_datas()  

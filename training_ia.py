@@ -6,10 +6,9 @@ from keras.layers import Dense, Dropout
 from keras.models import Sequential
 from keras.optimizers import SGD
 from nltk.stem import WordNetLemmatizer
-from src.services.training_service import get
+from services.training_service import get
 nltk.download('punkt')
 nltk.download('wordnet')
-import json
 
 def tra_ia():
     lemmatizer = WordNetLemmatizer()

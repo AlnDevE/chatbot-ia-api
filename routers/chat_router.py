@@ -1,9 +1,10 @@
 from fastapi import APIRouter, HTTPException
-from src.main import get_main
-from src.services.training_service import post, get, delete
+
+from services.training_service import post, get, delete
 from classes.train_data import CreateTraining
 import logging
 from training_ia import tra_ia
+from predict import predict
 
 router = APIRouter()
 
@@ -12,7 +13,8 @@ def get_response(message):
     if not message:
         raise HTTPException(404, "Has not message")
     try:
-        return get_main(message)
+        message = message.replace('\n','') if '\n' in message else message
+        return predict.get(message)
     except Exception as exc:
         raise HTTPException(500, f"Internal server error")
 
